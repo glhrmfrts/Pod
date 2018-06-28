@@ -122,6 +122,8 @@ class ImportOperator(bpy.types.Operator, bpy_extras.io_utils.ImportHelper):
                 b_face.loops[i][b_uv].uv = (face.texture_uvs[i][0] / 0xFF, 0xFF - face.texture_uvs[i][1] / 0xFF)
         # Write the BMesh data to the mesh, add it to an object and link it to the scene.
         b_bmesh.to_mesh(b_mesh)
+        b_mesh.uv_textures.active.name = "BaseMaterial"
+        b_mesh.uv_textures.new(name="Lightmap")
         b_bmesh.free()
         b_obj = bpy.data.objects.new(name, b_mesh)
         bpy.context.scene.objects.link(b_obj)
